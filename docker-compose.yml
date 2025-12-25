@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8
+    container_name: micronotes-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: micronotes
+      MYSQL_USER: notesuser
+      MYSQL_PASSWORD: notespass
+    volumes:
+      - micronotes_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+
+  api:
+    image: micronotes-api
+    container_name: micronotes-api
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "mysql+pymysql://notesuser:notespass@db:3306/micronotes"
+    ports:
+      - "5000:5000"
+
+volumes:
+  micronotes_data:
