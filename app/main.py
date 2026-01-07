@@ -73,5 +73,20 @@ DEFAULT_NOTES = [
 def health():
     return {"status": "ok"}, 200
 
+
+import os
+
+DB_HOST = os.getenv("DB_HOST", "db")
+DB_USER = os.getenv("DB_USER", "postgres")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "postgres")
+DB_NAME = os.getenv("DB_NAME", "notes")
+
+conn = psycopg2.connect(
+    host=DB_HOST,
+    user=DB_USER,
+    password=DB_PASSWORD,
+    dbname=DB_NAME
+)
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
