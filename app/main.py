@@ -61,6 +61,9 @@ def delete_note(note_id):
     notes = [n for n in notes if n["id"] != note_id]
     return jsonify(message="Deleted"), 200
 
+DEFAULT_NOTES = [
+    {"id": 1, "title": "First note", "content": "Deployed via CI/CD!"}
+]
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
